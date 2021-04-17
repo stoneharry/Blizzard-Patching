@@ -125,6 +125,8 @@ I could not find in the binary where it is defining this IP to try to connect to
 
 From old IRC logs I can see http://us.version.worldofwarcraft.com/update/PatchSequenceFile.txt mapped to http://206.16.22.126/update/PatchSequenceFile.txt
 
+I did test trying to run the Blizzard Downloader with debug arguments to try and trigger debug mode, but with no success. I think the only arguments are: `--hiddenProcessing` which runs the program headless, and `--hiddenPort=%d`.
+
 ## The Blizzard Updater
 
 https://github.com/stoneharry/Blizzard-Updater
