@@ -103,3 +103,69 @@ I could not find in the binary where it is defining this IP to try to connect to
 ## The Blizzard Updater
 
 https://github.com/stoneharry/Blizzard-Updater
+
+## Changing the WoW client version
+
+The client build is stored as a uint16 in a few places in the binary. The one that is read by the authserver during authentication in 3.3.5 is at: `0x4C99F0`.
+
+A very simple program to change the WoW version:
+```csharp
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace WoWVersionEditor
+{
+    class Program
+    {
+        private const uint _VersionOffset = 0x4C99F0; // 5020144 
+
+        static void Main(string[] args)
+        {
+            try
+            {
+                var path = args[0];
+                var currentVersion = ReadVersion(path);
+                var newVersion = args[1].Equals("+") ? ushort.Parse((currentVersion + 1).ToString()) : ushort.Parse(args[1]);
+                Console.WriteLine("Updating: " + path);
+                Console.WriteLine("Current version: " + currentVersion);
+                Console.WriteLine("New version: " + newVersion);
+                WriteVersion(path, $"{path}_{newVersion}.exe", newVersion);
+                Console.WriteLine("Done");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"[ERROR] {e.GetType()}: {e.Message}\n{e}");
+            }
+        }
+
+        static ushort ReadVersion(string filePath)
+        {
+            using (var stream = File.Open(filePath, FileMode.Open))
+            {
+                stream.Position = _VersionOffset;
+                using (var reader = new BinaryReader(stream))
+                {
+                    return reader.ReadUInt16();
+                }
+            }
+        }
+
+        static void WriteVersion(string oldFilePath, string newFilePath, ushort version)
+        {
+            File.Copy(oldFilePath, newFilePath, true);
+            using (var stream = File.Open(newFilePath, FileMode.Open))
+            {
+                stream.Position = _VersionOffset;
+                using (var reader = new BinaryWriter(stream))
+                {
+                    reader.Write(version);
+                }
+            }
+        }
+    }
+}
+```
