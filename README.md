@@ -123,6 +123,8 @@ I have tested trying to set test mode through various properties in the torrent 
 
 I could not find in the binary where it is defining this IP to try to connect to. It appears to use one of the two each run at random, and doesn't try connecting to both in a single run.
 
+From old IRC logs I can see http://us.version.worldofwarcraft.com/update/PatchSequenceFile.txt mapped to http://206.16.22.126/update/PatchSequenceFile.txt
+
 ## The Blizzard Updater
 
 https://github.com/stoneharry/Blizzard-Updater
