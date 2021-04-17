@@ -61,6 +61,37 @@ From my reverse engineering I believe it reads a `BlizzardDownloader.ini` from `
 
 Throughout the assembly I can see useful debug log statements made when a "test mode" is enabled. I have not managed to find a way to enable this mode.
 
+Debug mode data:
+
+![Reverse Engineer 1](https://i.imgur.com/ReUPTd5.png)
+![Reverse Engineer 2](https://i.imgur.com/Cf1PqSb.png)
+
+We can also see where it appears to read in a bunch of parameters from somewhere:
+
+![Reverse Engineer 3](https://i.imgur.com/d6OJSY1.png)
+```
+directDownloadURL
+nop2p
+nohttp
+noseeds
+onlyblizzpeers
+noblizzpeers
+trackerless
+allowincoming
+testmode
+```
+
+Considering the Direct Downloader URL is sent from the tracker, I wonder if the other parameters need to be supplied that way somehow:
+```php
+		// begin response
+		$response = 'd8:intervali' . $_SERVER['tracker']['announce_interval'] . 
+		$response = strlen($direct_download[0]) ? 'd6:directd3:url' . strlen($direct_download[0]) . ':' . $direct_download[0] . '9:thresholdi10000000ee' : 'd';
+		$response .= '8:intervali' . $_SERVER['tracker']['announce_interval'] . 
+		            'e12:min intervali' . $_SERVER['tracker']['min_interval'] . 
+		            'e5:peers';
+
+```
+
 ## The Blizzard Updater
 
 https://github.com/stoneharry/Blizzard-Updater
