@@ -65,6 +65,29 @@ Debug mode data:
 
 ![Reverse Engineer 1](https://i.imgur.com/ReUPTd5.png)
 ![Reverse Engineer 2](https://i.imgur.com/Cf1PqSb.png)
+```
+A4088h,1Ch,Logs/downloader-testmode.log
+A40A8h,18h,Downloader Test Mode Log
+A41A4h,8h,peer.log
+A4B80h,14h,peer missing total: 
+A4B98h,20h,bitfield received was too small!
+A4BBCh,Dh,recv bitfield
+A4BCCh,29h,peer sent a HAVE for a piece > numPieces!
+A4BF8h,Ah,recv have 
+A4C04h,1Ch,Invalid size for a have msg:
+A4C24h,13h,recv not interested
+A4C38h,Fh,recv interested
+A4C48h,Ch,recv unchoke
+A4C58h,Ah,recv choke
+A4C64h,25h,dirty peer! peer sent bad data before
+A4C8Ch,1Eh,already connected to this peer
+A4CACh,8h,PeerID: 
+A4CB8h,14h,processing handshake
+A4CD0h,7h,", time="
+A4CD8h,34h,Peer got too many bytes or too long duration: bytes=
+A4D10h,1Dh,Peer sent too many bad pieces
+A4D30h,22h,peer trying to send too much data:
+```
 
 We can also see where it appears to read in a bunch of parameters from somewhere:
 
