@@ -93,8 +93,11 @@ Considering the Direct Downloader URL is sent from the tracker, I wonder if the 
 ```
 
 I have tested trying to set test mode through various properties in the torrent file and have also tried setting it in the `BlizzardDownloader.ini` file it tries to read. Another thing I have noted is that in the logs we can see it trying to connect two hardcoded IP's for the ini file:
+
 `17:55:45.0571 Checking for server side config http://206.16.22.130/update/Downloader.ini`
+
 `15:57:40.6400 Checking for server side config http://12.129.232.131/update/Downloader.ini`
+
 I could not find in the binary where it is defining this IP to try to connect to. It appears to use one of the two each run at random, and doesn't try connecting to both in a single run.
 
 ## The Blizzard Updater
