@@ -127,6 +127,109 @@ From old IRC logs I can see http://us.version.worldofwarcraft.com/update/PatchSe
 
 I did test trying to run the Blizzard Downloader with debug arguments to try and trigger debug mode, but with no success. I think the only arguments are: `--hiddenProcessing` which runs the program headless, and `--hiddenPort=%d`.
 
+### 2021-06-29
+
+I did manage to get debug mode enabled with Schlumpf's help. It looks like all usage has been stripped from the code however, including parsing the argument from the command line arguments. We replaced `74 19 C6 46 68 01 C6 86 DB 00` with `90 90 C6 46 68 01 C6 86 DB 00` to force debug mode to be enabled. 
+
+To enable test mode:
+```
+let .text:00465BEB                 jz      short loc_465C06 be a nop (0x90).
+```
+Search for `74 19 C6 46 68 01 C6 86 DB 00` in the binary, replace with `90 90 …`.
+
+`.\HourOfTwilight_Downloader.exe --noblizzpeers --port=3725`
+Doesn't appear to output anything differently
+`.\HourOfTwilight_Downloader.exe --port=3725 --noblizzpeers -log log -noblizpeers noblizpeers port 3725 -port 3725 -onlyblizzpeers false onlyblizzpeers false`
+Something in this set of parameters causes it to log in a folder called XXogs\downloader-testmode.log where XX is random characters each run
+
+![WoW Folder with bad Logs folder](https://i.imgur.com/lHE7GFi.png)
+
+This logs to `downloader-testmode.log`:
+```
+#-----------------------------------------------------------
+# System started at 2021-04-19 20:32:53.1403
+# system: HARRY
+#-----------------------------------------------------------
+20:32:56.4410 Downloader Test Mode Log
+20:36:11.4058 Done
+```
+
+We also discovered that the IP's it connects to is: one of `(us|eu|kr|cn|tw).version.worldofwarcraft.com`. We can disable it pinging this IP by changing:
+```
+.text:00402211 6A 01                                   push    1 be push 0.
+```
+
+Full list of possible arguments:
+```
+version
+seed
+flood
+port
+choosepath
+responsefile
+responselist
+locale
+url
+tracker
+checkhashes
+minuploadrate
+maxuploadrate
+launchtarget
+maxsimultaneous
+maxuploads
+maxallowin
+allowincoming
+trackerless
+spew
+passThroughParams
+updateinterval
+saveas
+minpeers
+noblizseeds
+onlyblizseeds <<<<< 
+noblizpeers
+onlyblizpeers
+noseeds
+piecestorage
+nohttp
+nop2p <<<<<<<
+background
+bgseed
+autolaunch
+maxpending
+cookieName
+cookieData
+directDownloadURL
+logfile <<<<
+log <<< 
+logFolder <<<<
+silent
+hiddenProcessing
+hiddenPort
+closewhendiskfull
+autothrottle
+usemetafile
+scratch
+rescanifbadpiece
+memcached
+mcconfpath
+idleopt
+maxallowwhenslow
+upnpby
+dontusetracker
+dontusebonjour
+streaming
+mtui
+downloadlabel
+usenewthreshold
+uponly
+noskin
+help
+usage
+```
+
+I still have no clue why the peer to peer aspect of the Downloader is not working.
+
 ## The Blizzard Updater
 
 https://github.com/stoneharry/Blizzard-Updater
