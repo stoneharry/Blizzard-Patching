@@ -6,7 +6,7 @@ When a player tries to login to the server, the server reads the client version 
 
 ## Patching through the WoW client
 
-https://www.dropbox.com/s/fovh9mtrj9tgqd4/Implementing%20in-client%20patching%20for%20World%20of%20Warcraft.pdf?dl=0
+See the PDF attached in this repository.
 
 ## The Blizzard Downloader
 
