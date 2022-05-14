@@ -232,7 +232,11 @@ I still have no clue why the peer to peer aspect of the Downloader is not workin
 
 ## The Blizzard Updater
 
-https://github.com/stoneharry/Blizzard-Updater
+The main Blizzard Updater to use is documented here: https://github.com/stoneharry/Blizzard-Updater
+
+It builds an incremental update targeting an existing installation.
+
+If you need to do a major update like a full expansion, or want to install the client from scratch, then the full client installer has a lot more functionality but is a lot more heavyweight: https://github.com/stoneharry/Blizzard-Client-Installer
 
 ## Changing the WoW client version
 
