@@ -8,6 +8,14 @@ When a player tries to login to the server, the server reads the client version 
 
 See the PDF attached in this repository.
 
+## The Blizzard Updater
+
+The main Blizzard Updater to use is documented here: https://github.com/stoneharry/Blizzard-Updater
+
+It builds an incremental update targeting an existing installation.
+
+If you need to do a major update like a full expansion, or want to install the client from scratch, then the full client installer has a lot more functionality but is a lot more heavyweight: https://github.com/stoneharry/Blizzard-Client-Installer
+
 ## The Blizzard Downloader
 
 The Blizzard Downloader is responsible for downloading the Blizzard Updater. It supports HTTP direct downloads and the bittorrent protocol. We can send the entire update through the WoW client instead of using the Blizzard Downloader but this will stress the authserver and doing it that way loses the peer to peer aspect.
@@ -229,14 +237,6 @@ usage
 ```
 
 I still have no clue why the peer to peer aspect of the Downloader is not working.
-
-## The Blizzard Updater
-
-The main Blizzard Updater to use is documented here: https://github.com/stoneharry/Blizzard-Updater
-
-It builds an incremental update targeting an existing installation.
-
-If you need to do a major update like a full expansion, or want to install the client from scratch, then the full client installer has a lot more functionality but is a lot more heavyweight: https://github.com/stoneharry/Blizzard-Client-Installer
 
 ## Changing the WoW client version
 
